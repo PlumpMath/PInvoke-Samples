@@ -4,11 +4,11 @@ using SuiteValue.UI.MVVM;
 
 namespace Demo3.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class GetSetTextViewModel : ViewModelBase
     {
         private WinApiService _apiService;
 
-        public MainViewModel()
+        public GetSetTextViewModel()
         {
             _apiService = new WinApiService();
         }
@@ -113,6 +113,7 @@ namespace Demo3.ViewModels
                     () =>
                     {
                         Text = _apiService.GetTextOfProcess(SelectedProcess);
+                        Notepads = Process.GetProcessesByName("notepad");
                     }));
             }
         }

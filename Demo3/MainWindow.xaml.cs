@@ -21,12 +21,12 @@ namespace Demo3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainViewModel _viewModel;
+        private SamplesViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = _viewModel = new MainViewModel();
+            DataContext = _viewModel = new SamplesViewModel();
             Loaded += MainWindow_Loaded;
         }
 
