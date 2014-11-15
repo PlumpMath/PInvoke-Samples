@@ -3,6 +3,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        
+        <ListView ItemsSource="{Binding Notepads}" SelectedItem="{Binding SelectedProcess}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="140" Header="ID" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Width="140" Header="Name" DisplayMemberBinding="{Binding MainWindowTitle}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <TextBox IsReadOnly="True" Text="{Binding Text}" Grid.Column="1" />
+        <GroupBox Header="Send a Message:" Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBox Text="{Binding NewMessage}"/>
+        </GroupBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Content="Send" Command="{Binding SendCommand}"/>
+            <Button Content="Refresh" Command="{Binding RefreshCommand}" Margin="10,0,0,0"/>
+
+        </StackPanel>
+        
+        
+        
         
     </Grid>
 </Window>
