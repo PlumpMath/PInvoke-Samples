@@ -44,9 +44,21 @@
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                     <Button Content="Start" Command="{Binding StartCommand}"/>
                     <Button Content="Stop" Command="{Binding StopCommand}"/>
-
                 </StackPanel>
             </Grid>
+        </TabItem>
+        <TabItem Header="System Info" DataContext="{Binding SystemInfoViewModel}">
+            <ItemsControl ItemsSource="{Binding Values}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <TextBlock>
+                                    <Run Text="{Binding Key, Mode=OneWay}"/>
+                                    <Run Text=": "/>
+                                    <Run Text="{Binding Value, Mode=OneWay}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </TabItem>
     </TabControl>
 </Window>

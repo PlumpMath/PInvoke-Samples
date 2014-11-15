@@ -18,6 +18,28 @@ namespace Demo3.Services
         public int dwExtraInfo;
     }
 
+    public enum ProcessorArchitecture
+    {
+        X86 = 0,
+        X64 = 9,
+        @Arm = -1,
+        Itanium = 6,
+        Unknown = 0xFFFF,
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SystemInfo
+    {
+        public ProcessorArchitecture Processor;
+        public uint PageSize;
+        public uint MinimumApplicationAddress;
+        public uint MaximumApplicationAddress;
+        public uint ActiveProcessorMask;
+        public uint NumberOfProcessors;
+        public uint ProcessorType;
+        public uint AllocationGranularity;
+        public uint ProcessorLevel;
+        public uint ProcessorRevision;
+    }
 
     public class WinApiService
     {
@@ -52,6 +74,9 @@ namespace Demo3.Services
 		static extern IntPtr LoadLibrary(string lpFileName);
 
 		public delegate int KeyboardHookProc(int code, int wParam, ref KeyboardHookStruct lParam);
+
+        [DllImport("kernel32")]
+        static extern void GetSystemInfo(ref SystemInfo syetemInfo); 
 
 
         const int WM_GETTEXT = 0x000D;
@@ -138,7 +163,12 @@ namespace Demo3.Services
 
         public event KeyEventHandler KeyDown;
 
-
+        public SystemInfo GetSystemInfo()
+        {
+            var info = new SystemInfo();
+            GetSystemInfo(ref info);
+            return info;
+        }
     }
 }                                       
 
