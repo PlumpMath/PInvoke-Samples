@@ -34,5 +34,19 @@
                 </StackPanel>
             </Grid>
         </TabItem>
+        <TabItem Header="Key Logger">
+            <Grid DataContext="{Binding KeyLoggerViewModel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBox IsReadOnly="True" Text="{Binding Text}" AcceptsReturn="True"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="Start" Command="{Binding StartCommand}"/>
+                    <Button Content="Stop" Command="{Binding StopCommand}"/>
+
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>
