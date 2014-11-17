@@ -38,6 +38,9 @@ namespace MultiTypesApp
             string mode = args.Length > 0 ? args[0] : "gui";
             if (mode == "gui")
             {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Form1());
                 // Open windows form as our GUI
             }
             else if (mode == "console")
@@ -55,10 +58,6 @@ namespace MultiTypesApp
                     //Open New console shell as our GUI.
                 }
             }
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
         }
     }
 }
