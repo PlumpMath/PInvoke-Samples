@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -31,8 +32,30 @@ namespace MultiTypesApp
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+
+            string mode = args.Length > 0 ? args[0] : "gui";
+            if (mode == "gui")
+            {
+                // Open windows form as our GUI
+            }
+            else if (mode == "console")
+            {
+                int u = 0;
+                Process process = Process.GetProcessById(u);
+                if (process.ProcessName == "cmd"
+                       || process.ProcessName == "powershell"
+                )
+                {
+                    // Use Current shell as our GUI
+                }
+                else
+                {
+                    //Open New console shell as our GUI.
+                }
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
