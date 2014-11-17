@@ -38,25 +38,44 @@ namespace MultiTypesApp
             string mode = args.Length > 0 ? args[0] : "gui";
             if (mode == "gui")
             {
+                // Open windows form as our GUI
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Form1());
-                // Open windows form as our GUI
             }
             else if (mode == "console")
             {
-                int u = 0;
+                // Get a pointer to the forground window.  The idea here is that
+                // IF the user is starting our application from an existing console
+                // shell, that shell will be the uppermost window.  We'll get it
+                // and attach to it
+                IntPtr ptr = GetForegroundWindow();
+                // We will insert the curent thread ID into this var
+                int u;
+                // Get the process ID, using our pointer
+                GetWindowThreadProcessId(ptr, out u);
+                // Get process element using the process ID
                 Process process = Process.GetProcessById(u);
-                if (process.ProcessName == "cmd"
-                       || process.ProcessName == "powershell"
-                )
+
+                if (process.ProcessName == "cmd" || process.ProcessName == "powershell")
                 {
                     // Use Current shell as our GUI
+                    AttachConsole(process.Id);
+                    //we have a console to attach to ..
+                    Console.WriteLine("hello. It looks like you started me from an existing console (or powershell).");
+                    // if we want to close and go back to CMD we can use
+                    SendKeys.SendWait("{ENTER}");
                 }
                 else
                 {
                     //Open New console shell as our GUI.
+                    AllocConsole();
+
+                    Console.WriteLine(@"hello. It looks like you double clicked me to start AND you want console mode.  Here's a new console.");
+                    Console.WriteLine("press any key to continue ...");
+                    Console.ReadLine();
                 }
+                FreeConsole();
             }
         }
     }
